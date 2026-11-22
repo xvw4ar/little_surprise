@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070811">
+<title>Night City // Birthday Transmission</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+:root{--bg:#070811;--panel:rgba(10,13,27,.88);--cyan:#65f5f2;--red:#ff3158;--pink:#f35c9d;--gold:#ffd68a;--text:#e9f3f5;--muted:#93a5b6;--mono:'Space Mono',monospace;--display:'Orbitron',sans-serif;--body:'Rajdhani',sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:30px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.10;background:repeating-linear-gradient(to bottom,transparent 0 3px,rgba(135,225,255,.18) 4px,transparent 5px)}
+body:after{content:"";position:fixed;inset:0;z-index:19;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.42) 100%)}
+button{font:inherit}
+.boot{position:fixed;inset:0;z-index:50;background:#05060d;display:grid;place-items:center;padding:22px;transition:opacity .8s,visibility .8s}
+.boot.hidden{opacity:0;visibility:hidden}
+.bootbox{width:min(680px,100%);padding:clamp(22px,5vw,42px);border:1px solid rgba(101,245,242,.45);background:linear-gradient(145deg,rgba(10,17,32,.97),rgba(16,8,24,.96));box-shadow:0 0 45px rgba(101,245,242,.10),inset 0 0 30px rgba(255,49,88,.04);font:12px/2 var(--mono)}
+.boot-title{font:600 clamp(17px,4vw,25px) var(--display);letter-spacing:.14em;color:var(--cyan);margin-bottom:22px;text-shadow:0 0 15px #65f5f277}
+.bootline{color:#a8bac8}.bootline b{font-weight:400;color:var(--red)}
+.bootbar{height:3px;background:#1c2634;margin:22px 0 14px;overflow:hidden}
+.bootbar span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--cyan),var(--red));animation:load 2s ease forwards}
+@keyframes load{to{width:100%}}
+.enter,.secret,.arrow-button{border:1px solid var(--cyan);background:rgba(101,245,242,.04);color:var(--cyan);padding:12px 19px;letter-spacing:.12em;font:11px var(--mono);cursor:pointer;transition:.25s}
+.enter:hover,.secret:hover,.arrow-button:hover{background:rgba(101,245,242,.14);box-shadow:0 0 22px #65f5f255;transform:translateY(-2px)}
+main{opacity:0;transition:opacity 1s}main.ready{opacity:1}
+.topbar{position:absolute;z-index:4;top:0;left:0;right:0;display:flex;justify-content:space-between;gap:12px;padding:21px clamp(16px,5vw,62px);font:10px var(--mono);letter-spacing:.15em;color:#9fb2c2}
+.topbar span:last-child{color:var(--red)}
+.hero{height:100svh;min-height:650px;position:relative;overflow:hidden;display:grid;place-items:center;text-align:center;padding:90px 20px 115px;background:radial-gradient(ellipse at 50% 48%,#171d37 0%,#0c1020 43%,#070811 78%)}
+.stars,.stars:before,.stars:after{position:absolute;inset:0;content:"";background-image:radial-gradient(1px 1px at 12% 20%,#dffcff 50%,transparent 60%),radial-gradient(1.5px 1.5px at 72% 15%,#ffb5c7 50%,transparent 60%),radial-gradient(1px 1px at 85% 48%,#fff 50%,transparent 60%),radial-gradient(1px 1px at 24% 64%,#a5f8ff 50%,transparent 60%),radial-gradient(1px 1px at 58% 75%,#fff 50%,transparent 60%),radial-gradient(1px 1px at 40% 32%,#ff8ba8 50%,transparent 60%);background-size:390px 310px;opacity:.55;animation:drift 75s linear infinite}
+.stars:before{transform:scale(1.4);opacity:.24;animation-duration:105s}.stars:after{transform:scale(.8);opacity:.3;animation-duration:58s}
+@keyframes drift{to{transform:translate3d(-35px,28px,0)}}
+.space-haze{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 56%,rgba(255,49,88,.10),transparent 28%),radial-gradient(ellipse at 50% 20%,rgba(101,245,242,.08),transparent 48%);pointer-events:none}
+.planet-system{position:absolute;width:min(76vw,600px);aspect-ratio:1;left:50%;top:48%;transform:translate(-50%,-50%);display:grid;place-items:center;pointer-events:none}
+.planet{position:relative;width:42%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 25%,#9eb4c1 0%,#536b83 19%,#29374d 48%,#111729 73%,#080b15 100%);box-shadow:inset -28px -20px 45px #02040b, inset 9px 7px 18px #d2faff55,0 0 35px #7be7f522,0 0 100px #ff315822;overflow:hidden;animation:planetFloat 8s ease-in-out infinite}
+.planet:before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-linear-gradient(165deg,transparent 0 15px,#b5c5d333 16px 18px,transparent 20px 34px);opacity:.5;mix-blend-mode:screen}
+.planet:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(0,0,0,.68) 78%)}
+@keyframes planetFloat{50%{transform:translateY(-10px)}}
+.orbit{position:absolute;width:88%;height:34%;border:1px solid rgba(101,245,242,.7);border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 12px #65f5f244,inset 0 0 12px #65f5f222}
+.orbit:after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);top:10%;left:14%;box-shadow:0 0 13px var(--cyan),0 0 25px var(--cyan)}
+.orbit.one{animation:orbitA 19s linear infinite}
+.orbit.two{width:105%;height:47%;border-color:rgba(255,49,88,.68);transform:rotate(32deg);animation:orbitB 25s linear infinite}
+.orbit.two:after{background:var(--red);top:auto;left:auto;right:12%;bottom:12%;box-shadow:0 0 13px var(--red),0 0 25px var(--red)}
+@keyframes orbitA{from{transform:rotate(-24deg)}to{transform:rotate(336deg)}}
+@keyframes orbitB{from{transform:rotate(32deg)}to{transform:rotate(-328deg)}}
+.hero-content{position:relative;z-index:3;max-width:850px;margin-top:7vh;text-shadow:0 2px 20px #000}
+.eyebrow{font:10px var(--mono);letter-spacing:.25em;color:var(--cyan);text-transform:uppercase}
+h1{font:600 clamp(29px,6vw,66px)/1.2 var(--display);letter-spacing:.035em;margin:18px 0;color:#f1f8f8;text-shadow:0 0 22px #65f5f244}
+.hero-sub{font:clamp(12px,2vw,15px) var(--mono);color:#a9bdc9;letter-spacing:.06em;line-height:1.9}
+.cursor{display:inline-block;width:7px;height:1em;background:var(--red);vertical-align:middle;margin-left:5px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.explore{position:absolute;z-index:5;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.explore-label{font:10px var(--mono);letter-spacing:.18em;color:#a4b5c2}
+.arrow-button{width:42px;height:42px;padding:0;font-size:21px;line-height:1;border-radius:50%;display:grid;place-items:center}
+.city{height:430px;position:relative;overflow:hidden;margin-top:-1px;background:linear-gradient(180deg,#070811 0%,#0b101d 22%,#11101b 70%,#080911 100%)}
+.city:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 5%,rgba(255,49,88,.12),transparent 55%),linear-gradient(0deg,rgba(3,5,12,.9),transparent 70%)}
+.citylabel{position:absolute;z-index:3;top:26px;left:clamp(18px,5vw,64px);font:10px var(--mono);letter-spacing:.2em;color:var(--red);text-shadow:0 0 12px #ff315866}
+.skyline{position:absolute;bottom:0;left:0;right:0;height:88%;display:flex;align-items:flex-end;gap:5px;justify-content:space-around;padding:0 1%}
+.building{position:relative;flex:1;max-width:125px;height:var(--h);background:linear-gradient(90deg,#090d17,#151b29 48%,#080c16);border:1px solid rgba(125,170,190,.16);box-shadow:inset 0 0 22px rgba(101,245,242,.04),0 0 18px #000}
+.building:before{content:"";position:absolute;inset:12px 8px;background:repeating-linear-gradient(0deg,transparent 0 13px,rgba(101,245,242,.34) 14px 15px,transparent 16px 27px),repeating-linear-gradient(90deg,transparent 0 12px,rgba(255,49,88,.25) 13px 14px,transparent 15px 25px);opacity:.55}
+.building:after{content:"";position:absolute;top:-20px;left:50%;height:20px;border-left:1px solid rgba(101,245,242,.4)}
+.neon-sign{position:absolute;z-index:2;top:25%;left:50%;transform:translateX(-50%);font:600 clamp(7px,1vw,10px) var(--display);color:var(--cyan);text-shadow:0 0 8px var(--cyan),0 0 18px var(--cyan);white-space:nowrap;letter-spacing:.06em}
+.building.arasaka{max-width:150px;background:linear-gradient(90deg,#100b15,#24111d 50%,#100b15);border-color:#ff315866;box-shadow:inset 0 0 30px #ff315811,0 0 24px #ff315811}
+.building.arasaka:before{background:repeating-linear-gradient(0deg,transparent 0 16px,#ff315844 17px 18px,transparent 19px 31px),repeating-linear-gradient(90deg,transparent 0 14px,#ff315822 15px 16px,transparent 17px 28px)}
+.building.arasaka .neon-sign{top:18%;font-size:clamp(8px,1.2vw,12px);color:#ff526e;text-shadow:0 0 9px #ff3158,0 0 24px #ff3158}
+.horizon{position:absolute;bottom:0;height:24px;left:0;right:0;background:#06070d;box-shadow:0 -10px 35px rgba(255,49,88,.08)}
+.section{position:relative;padding:clamp(64px,9vw,105px) 18px;background:linear-gradient(180deg,#080a13,#0b101c 55%,#080a13)}
+.wrap{width:min(900px,100%);margin:auto}
+.section-tag{font:10px var(--mono);letter-spacing:.2em;color:var(--cyan);margin-bottom:18px}
+.window{border:1px solid rgba(101,245,242,.25);background:linear-gradient(135deg,rgba(15,22,35,.94),rgba(9,12,23,.97));box-shadow:0 15px 60px rgba(0,0,0,.32),0 0 35px rgba(101,245,242,.045);position:relative;overflow:hidden}
+.window:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 0 35%,rgba(175,245,255,.035) 48%,transparent 60%)}
+.windowbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 17px;border-bottom:1px solid rgba(101,245,242,.16);font:9px var(--mono);letter-spacing:.12em;color:#9db3c0;background:rgba(4,8,15,.3)}
+.dots{display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;background:#ff526e;opacity:.8}.dots i:nth-child(2){background:#e5c26a}.dots i:nth-child(3){background:#65f5f2}
+.windowbody{position:relative;padding:clamp(20px,5vw,42px)}
+.codehead{font:clamp(10px,2vw,13px) var(--mono);color:var(--red);letter-spacing:.1em;margin-bottom:24px}
+.letter-title{font:600 clamp(22px,4vw,35px) var(--display);margin:0 0 25px;color:#eafafa;text-shadow:0 0 14px #65f5f222}
+.letter{font:500 clamp(16px,2vw,19px)/1.8 var(--body);color:#d7e2e7;white-space:pre-line;min-height:180px}
+.letter p{margin:0 0 18px}
+.signature{font:italic 23px Georgia,serif;color:#ff91aa;margin-top:28px;text-align:right}
+.music-window{max-width:800px;margin:auto}
+.music-top{display:flex;gap:22px;align-items:center}
+.album{width:clamp(90px,18vw,140px);aspect-ratio:1;border-radius:4px;background:radial-gradient(circle at 50% 45%,#ff9ab0 0 10%,#c62d50 11% 20%,#34334c 42%,#101724 75%);box-shadow:0 0 35px rgba(255,49,88,.17);flex-shrink:0;position:relative}
+.album:after{content:"";position:absolute;inset:12%;border:1px solid rgba(255,255,255,.24);border-radius:50%}
+.trackinfo{min-width:0}.now{font:10px var(--mono);letter-spacing:.2em;color:var(--cyan);margin-bottom:12px}
+.trackname{font:600 clamp(18px,3.5vw,28px) var(--display);line-height:1.3}
+.artist{font:500 clamp(13px,2vw,17px) var(--body);color:#9eafbd;margin-top:8px}
+.player-controls{display:flex;align-items:center;gap:17px;margin-top:28px}
+.play{width:58px;height:58px;border:1px solid var(--cyan);border-radius:50%;background:rgba(101,245,242,.1);color:var(--cyan);font-size:21px;cursor:pointer;box-shadow:0 0 20px rgba(101,245,242,.1);flex-shrink:0;transition:.2s}
+.play:hover{background:rgba(101,245,242,.2);box-shadow:0 0 25px #65f5f244}
+.progress-area{flex:1;min-width:0}.progress{width:100%;accent-color:var(--cyan);cursor:pointer}
+.time{display:flex;justify-content:space-between;color:#aab5c2;font:11px var(--mono);margin-top:5px}
+.song-caption{text-align:center;font:italic clamp(20px,4vw,32px)/1.4 Georgia,serif;color:#f0a9b8;margin:34px 0 0}
+.footer{padding:45px 20px 65px;text-align:center;background:#06070d;color:#8493a3;font:9px var(--mono);letter-spacing:.14em}
+.footer strong{display:block;color:var(--red);font-weight:400;margin-top:12px}
+.secret{margin-top:24px;border-color:rgba(255,49,88,.5);color:#ff8ca1}
+.secretmsg{display:none;margin:15px auto 0;max-width:460px;color:#9ff7f0;font:12px/1.8 var(--mono)}
+.secretmsg.show{display:block}
+@media(max-width:560px){
+ .topbar{font-size:8px;padding:16px 13px}.hero{min-height:620px}.planet-system{width:94vw;top:43%}
+ .city{height:310px}.skyline{gap:3px}.building:nth-child(2n){opacity:.78}
+ .music-top{gap:15px}.play{width:52px;height:52px}.player-controls{gap:12px}
+ .windowbar{font-size:8px;padding:11px 12px}.letter{line-height:1.75}.building.arasaka{flex:1.35}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="boot" id="boot">
+ <div class="bootbox">
+  <div class="boot-title">NIGHT CITY // PERSONAL ARCHIVE</div>
+  <div class="bootline">INITIALIZING BIRTHDAY.EXE <b>[OK]</b></div>
+  <div class="bootline">LOADING NIGHT CITY NETWORK <b>[OK]</b></div>
+  <div class="bootline">CONNECTING TO A VERY SPECIAL PERSON <b>[OK]</b></div>
+  <div class="bootbar"><span></span></div>
+  <div class="bootline" id="bootstatus">Preparing your transmission...</div>
+  <button class="enter" id="enter">[ ENTER THE UNIVERSE ]</button>
+ </div>
+</div>
+<main id="main">
+ <header class="topbar"><span>NC // PERSONAL ARCHIVE</span><span>ARASAKA NET: <b style="color:#ff7188">CONNECTED</b></span></header>
+ <section class="hero">
+  <div class="stars"></div><div class="space-haze"></div>
+  <div class="planet-system" aria-hidden="true"><div class="orbit one"></div><div class="orbit two"></div><div class="planet"></div></div>
+  <div class="hero-content">
+   <div class="eyebrow">✦ A TRANSMISSION FROM MY UNIVERSE ✦</div>
+   <h1 id="heroTitle"></h1>
+   <div class="hero-sub" id="heroSub"></div>
+  </div>
+  <div class="explore">
+   <div class="explore-label">TAP THE ARROW TO EXPLORE</div>
+   <button class="arrow-button" id="exploreArrow" aria-label="Explore Night City">↓</button>
+  </div>
+ </section>
+ <section class="city" id="nightCity" aria-label="Night City skyline">
+  <div class="citylabel">SECTOR 07 // NIGHT CITY</div>
+  <div class="skyline">
+   <div class="building" style="--h:49%"><span class="neon-sign">WATSON</span></div>
+   <div class="building" style="--h:70%"><span class="neon-sign">AFTERLIFE</span></div>
+   <div class="building" style="--h:56%"><span class="neon-sign">HEYWOOD</span></div>
+   <div class="building arasaka" style="--h:94%"><span class="neon-sign">ARASAKA</span></div>
+   <div class="building" style="--h:63%"><span class="neon-sign">MILITECH</span></div>
+   <div class="building" style="--h:77%"><span class="neon-sign">LIZZIE'S</span></div>
+   <div class="building" style="--h:52%"><span class="neon-sign">NIGHT CITY</span></div>
+   <div class="building" style="--h:67%"><span class="neon-sign">NC-77</span></div>
+  </div><div class="horizon"></div>
+ </section>
+ <section class="section" id="letter">
+  <div class="wrap">
+   <div class="section-tag">01 // INCOMING MESSAGE</div>
+   <div class="window">
+    <div class="windowbar"><span>MESSAGE_TERMINAL.exe</span><span class="dots"><i></i><i></i><i></i></span><span>ENCRYPTED // 001</span></div>
+    <div class="windowbody">
+     <div class="codehead">root@nightcity:~$ open birthday_letter.txt</div>
+     <h2 class="letter-title">To my favorite person,</h2>
+     <div class="letter" id="letterText"></div>
+     <div class="signature" id="signature" style="opacity:0">With all my love ♡</div>
+    </div>
+   </div>
+  </div>
+ </section>
+ <section class="section" id="song">
+  <div class="wrap">
+   <div class="section-tag">02 // AUDIO LINK</div>
+   <div class="window music-window">
+    <div class="windowbar"><span>MEDIA_PLAYER.exe</span><span>A SONG FOR YOU SWEETIE</span></div>
+    <div class="windowbody">
+     <div class="music-top">
+      <div class="album"></div>
+      <div class="trackinfo">
+       <div class="now">NOW PLAYING</div>
+       <div class="trackname">Can’t Help Falling in Love</div>
+       <div class="artist">Elvis Presley · a song for you</div>
+      </div>
+     </div>
+     <div class="player-controls">
+      <button class="play" id="play" aria-label="Play music">▶</button>
+      <div class="progress-area">
+       <input class="progress" id="progress" type="range" min="0" max="100" value="0" aria-label="Song progress">
+       <div class="time"><span id="current">0:00</span><span id="duration">--:--</span></div>
+      </div>
+     </div>
+     <audio id="audio" preload="metadata">
+      <source src="assets/birthday-song.m4a" type="audio/mp4">
+     </audio>
+     <div class="song-caption">Take my hand, let's create our own galaxy.</div>
+    </div>
+   </div>
+  </div>
+ </section>
+ <footer class="footer">
+  END OF TRANSMISSION // MADE WITH LOVE
+  <strong>HAPPY BIRTHDAY ♡</strong>
+  <button class="secret" id="secret">[ DECRYPT HIDDEN FILE ]</button>
+  <div class="secretmsg" id="secretmsg">If the whole universe had a favorite person, I think it would choose you too. ✦</div>
+ </footer>
+</main>
+<script>
+const boot=document.getElementById('boot'),main=document.getElementById('main');
+document.getElementById('enter').addEventListener('click',()=>{
+ boot.classList.add('hidden');main.classList.add('ready');
+ typeText(document.getElementById('heroTitle'),'A LITTLE UNIVERSE FOR YOU',48,()=>{
+  typeText(document.getElementById('heroSub'),'one small world, made for someone extraordinary.',23);
+ });
+});
+function typeText(el,text,speed,done){
+ let i=0;el.textContent='';const cursor=document.createElement('span');cursor.className='cursor';el.appendChild(cursor);
+ const tick=()=>{if(i<text.length){cursor.before(document.createTextNode(text[i++]));setTimeout(tick,speed)}else{cursor.remove();if(done)done()}};
+ tick();
+}
+document.getElementById('exploreArrow').addEventListener('click',()=>document.getElementById('nightCity').scrollIntoView({behavior:'smooth',block:'start'}));
+const paragraphs=[
+"On your birthday, I wish you years filled with happiness, surrounded by the people you love, a heart that never knows sadness, and days that are just as beautiful as your soul.",
+"I hope I get to see you achieve all your dreams and reach the place you truly deserve. I'll always cheer you on, support you and your beautiful ideas, and I'll always be proud of every effort you make.",
+"You're truly such a wonderful and special person to me. You have such a unique personality, and having you in my life gives me such a beautiful feeling.",
+"I wanted to make you something small that would make you smile, just like you always manage to make me smile with all the little things and tiny details you do for me.",
+"And finally, I want to tell you once again: happy birthday! I hope you enjoy your day and make beautiful memories, because today isn't just an ordinary day...",
+"Today is special because it's the day the most special person in my life was born. 🖐🏻💕"
+];
+const letterBox=document.getElementById('letterText'),signature=document.getElementById('signature');
+let letterStarted=false;
+const observer=new IntersectionObserver(entries=>{
+ if(entries.some(e=>e.isIntersecting)&&!letterStarted){letterStarted=true;typeParagraph(0);}
+},{threshold:.18});
+observer.observe(document.getElementById('letter'));
+function typeParagraph(index){
+ if(index>=paragraphs.length){signature.style.transition='opacity 1.2s';signature.style.opacity=1;return}
+ const p=document.createElement('p');letterBox.appendChild(p);let i=0;
+ function step(){if(i<paragraphs[index].length){p.textContent+=paragraphs[index][i++];setTimeout(step,17)}else{setTimeout(()=>typeParagraph(index+1),420)}}
+ step();
+}
+const audio=document.getElementById('audio'),play=document.getElementById('play'),progress=document.getElementById('progress');
+const current=document.getElementById('current'),duration=document.getElementById('duration');
+function fmt(s){if(!Number.isFinite(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
+play.addEventListener('click',async()=>{
+ if(audio.paused){try{await audio.play();play.textContent='Ⅱ'}catch(e){play.textContent='▶';alert('The audio file could not be played. Add birthday-song.m4a inside the assets folder.')}}else{audio.pause();play.textContent='▶'}
+});
+audio.addEventListener('loadedmetadata',()=>duration.textContent=fmt(audio.duration));
+audio.addEventListener('timeupdate',()=>{current.textContent=fmt(audio.currentTime);if(Number.isFinite(audio.duration)&&audio.duration>0)progress.value=(audio.currentTime/audio.duration)*100});
+progress.addEventListener('input',()=>{if(Number.isFinite(audio.duration))audio.currentTime=(progress.value/100)*audio.duration});
+audio.addEventListener('ended',()=>play.textContent='▶');
+document.getElementById('secret').addEventListener('click',()=>document.getElementById('secretmsg').classList.toggle('show'));
+// Tiny synthesized interface bleeps: no external sound file needed.
+let audioCtx;
+function uiBleep(){
+ try{
+  const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;
+  audioCtx=audioCtx||new Ctx();if(audioCtx.state==='suspended')audioCtx.resume();
+  const t=audioCtx.currentTime,osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+  osc.type='sine';osc.frequency.setValueAtTime(740,t);osc.frequency.exponentialRampToValueAtTime(1120,t+.045);
+  gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.045,t+.008);gain.gain.exponentialRampToValueAtTime(.0001,t+.095);
+  osc.connect(gain);gain.connect(audioCtx.destination);osc.start(t);osc.stop(t+.1);
+ }catch(e){}
+}
+document.addEventListener('click',e=>{
+ if(e.target.closest('button,a,[role="button"]'))uiBleep();
+});
+</script>
+</body>
+</html>
